@@ -1,0 +1,100 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>testing</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script type="text/javascript" src="https://www.l2.io/ip.js?var=myip"></script>
+    
+    <script>
+    var socket = io(); 
+      
+      socket.on('thisisyou', function(data) {
+        textstuff.innerHTML += data;
+      });
+      
+      socket.on('notready', function(data) {
+        textstuff.innerHTML += "Error stopped the game:"+data;
+      });
+      
+      socket.on('error', function(data) {
+        textstuff.innerHTML += "Error stopped the game:"+data;
+      });
+      
+      socket.on('connect_timeout', function(timeout) {
+        textstuff.innerHTML += "connectiosn timed out";
+      })
+    </script>
+<script src="/sketch.js"></script>
+    <!-- import the webpage's javascript file 
+    <script src="/script.js" defer></script>-->
+  </head>  
+  <body> 
+    <div class="background-wrap"><!--
+			<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop" muted="muted"> 
+				<source src="https://cdn.glitch.com/372a2a82-5f70-4cb1-b57e-0d59416f8581%2Ffile%20(1).mp4?1535714477108" type="video/mp4">
+				Video not supported
+			</video>          -->
+		</div>
+    <div align="center" id="man">
+      
+    
+    <p id="text" style="color: black;">
+      Arrow keys to move some way or another
+    </p>
+    </div>
+    <script>
+      var textstuff = document.getElementById('text');
+        socket.on('disconnected', function(data) {
+      textstuff.innerHTML += "<br>DISCONNECTED";
+          socket.disconnect()
+    })
+    </script>
+    <div class="column left">
+      
+    
+    <button id="inter">
+      Interpol off
+    </button>
+    <button id="cfps">
+      No ghosts
+    </button>
+
+    
+    
+    <script>
+    document.getElementById('inter').onclick = function() {
+interpolated = false;
+}
+  document.getElementById('cfps').onclick = function() {
+  ghosts = false;
+  }
+    </script>
+      <!--  style="display:flex;justify-content:center;align-items:center;" -->
+    <div id="canv">
+ 
+</div></div>
+     <!-- <div class="column right">	
+
+<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+  
+  </div>-->
+
+    <script src="https://not-a.glitch.me/log.js"></script>
+  </body>
+</html> 
